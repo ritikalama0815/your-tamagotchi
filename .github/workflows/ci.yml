@@ -21,6 +21,9 @@ jobs:
       with:
         node-version: '20'
 
+    - name: install electron 
+      run: npm --save-dev electron electron-reload
+
     - name: Install dependencies
       run: npm ci
 
