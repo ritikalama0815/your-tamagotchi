@@ -1,10 +1,16 @@
 {
-  "name": "plant-buddy",
+  "name": "tamagotchi",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start" : "electron ."
+    "start" : "electron .",
+    "build":  "electron-builder"
+
+  },
+  "repository": {
+    "type": "git",
+    "url" : "git+https://github.com:ritikalama0815/your-tamagotchi.git"
   },
   "keywords": [],
   "author": "",
