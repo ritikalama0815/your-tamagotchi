@@ -7,7 +7,7 @@ function createWindow() {
     //this is how electron creates window on desktop
     const window = new BrowserWindow({
         width: 320,
-        height: 450,
+        height: 500,
         resizable: false,
         maximizable: false,
         fullscreenable: false,
