@@ -37,7 +37,8 @@ button{
 }
 
 .action-btns,
-.title-bar-btns {
+.title-bar-btns,
+.cat-name-row {
     -webkit-app-region: no-drag;
 }
 
@@ -45,12 +46,50 @@ button{
     display:flex;
     justify-content: space-between;
     align-items: center;
+    gap: 4px;
 }
 
-#plant-name{
+.cat-name-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+    flex: 1;
+}
+
+#cat-name{
     font-size: 1.375rem;
     font-weight: normal;
     color: #e080b0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+.cat-name-input {
+    display: none;
+    width: 100%;
+    min-width: 0;
+    flex: 1;
+    font-family: "VT323", monospace;
+    font-size: 1.375rem;
+    font-weight: normal;
+    color: #e080b0;
+    background: #fce4ec;
+    border: 3px solid #e8a8bc;
+    border-radius: 4px;
+    padding: 0 4px;
+    outline: none;
+    -webkit-app-region: no-drag;
+}
+
+.cat-name-row.editing #cat-name {
+    display: none;
+}
+
+.cat-name-row.editing .cat-name-input {
+    display: block;
 }
 
 .title-bar-btns {
@@ -64,17 +103,24 @@ button{
     height: 1.375rem;
     border: none;
     background: none;
+    flex-shrink: 0;
+  }
+
+.title-bar-btn:hover {
+    opacity: 0.75;
   }
   
 #minimize-btn,
-#close-btn {
+#close-btn,
+#edit-name-icon {
       width: 100%;
     max-width: 1.375rem;
+    image-rendering: pixelated;
   }
 
-/* Plant zone */
+/* Cat zone */
 
-.plant-zone {
+.cat-zone {
     width: 100%;
     max-width: 18rem;
     height: 100%;
@@ -91,7 +137,7 @@ button{
     background: #f7cdd9;
   }
   
-  #plant {
+  #cat {
     width: 100%;
     max-width: 9rem;
     max-height: 10rem;
@@ -140,27 +186,27 @@ button{
     color: #c96b8a;
   }
 
-  /* Water meter */
+  /* Treats meter */
 
-.water-meter {
+.treats-meter {
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
   
-  .water-label,
-  .water-level {
+  .treats-label,
+  .treats-level {
     display: flex;
     justify-content: space-between;
   }
   
-  #water,
+  #treats-label,
   #percentage {
     font-size: 1.125rem;
     color: #e080b0;
   }
   
-  .water-bar {
+  .treats-bar {
     width: 100%;
     max-width: 18rem;
     height: 100%;
@@ -221,7 +267,7 @@ button{
     border-radius: 4px;
   }
   
-  #water-btn {
+  #treats-btn {
     border-color: #e070a0;
     background: #f8c4d8;
     color: #d45a88;
