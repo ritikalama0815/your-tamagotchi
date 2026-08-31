@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my own tamagotchi</title>
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=VT323&display=swap" rel="stylesheet">
+
+     <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+    <div class="app" style="-webkit-app-region:drag;">
+        <div class="title-bar">
+            <h1 id="plant-name">
+                galaxy destroyer
+            </h1>
+            <div class="title-bar-btns">
+                <button class="title-bar-btn" id="minimize">
+                    <img src="assets/title-bar-btns/minimize-btn.png" alt="Minimize" id="minimize-btn"/>
+                </button>
+                <button class="title-bar-btn" id="close">
+                    <img src="assets/title-bar-btns/close-btn.png" alt="Close" id="close-btn"/>
+                </button>
+
+            </div>
+        </div>
+
+
+
+        <div class="plant-zone">
+            <img src="assets/philodendron-plant/philodendron-thriving.gif" alt="Plant" id="plant"/>
+            <div class="mood-tag">
+                <p id="mood">thriving</p>
+            </div>
+        </div>
+
+
+        <div class="care-reminder">
+            <span id="message">all good here</span>
+        </div>
+
+
+        <div class="water-meter">
+            <div class="water-level">
+                <p id="water">water</p>
+                <p class="percentage">100%</p>
+            </div>
+            <div class="water-bar">
+                <div class="percent-bar" id="bar-1">-</div>
+                <div class="percent-bar" id="bar-2">-</div>
+                <div class="percent-bar" id="bar-3">-</div>
+                <div class="percent-bar" id="bar-4">-</div>
+                <div class="percent-bar" id="bar-5">-</div>
+                <div class="percent-bar" id="bar-6">-</div>
+                <div class="percent-bar" id="bar-7">-</div>
+                <div class="percent-bar" id="bar-8">-</div>
+                <div class="percent-bar" id="bar-9">-</div>
+                <div class="percent-bar" id="bar-10">-</div>
+            </div>
+        </div>
+
+        <div class="action-btns">
+            <button id="water-btn" class="action-btn">
+                <p class="name">water</p>
+                <span class="timer">ready</span>
+            </button>
+
+            <button id="restart-btn" class="action-btn" style="display:none">
+                <p class="name">restart</p>
+                <span class="timer">start over</span>
+            </button>
+        </div>
+
+
+    </div>
+
+
+
+    <script scr="script.js"></script>
+    
+</body>
+</html>

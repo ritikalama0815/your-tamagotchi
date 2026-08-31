@@ -1,0 +1,115 @@
+const { ipcRenderer } = require('electron');
+const minimize = document.getElementById("minimize-btn");
+const close = document.getElementById("close-btn");
+
+minimize.addEventListener("click", () => ipcRenderer.send("window:minimize"));
+close.addEventListener("click", () => ipcRenderer.send("window:close"));
+
+// Water mechanic
+const drain = 1;
+const drain_interval = 1000;
+const water_cooldown = 10000;
+
+let water_level = 100;
+let water_on_cooldown = false;
+let cooldown_timer = null;
+
+const bars = Array.from({ length: 10 }, (_, i) =>
+    document.getElementById(`bar-${i + 1}`)
+);
+
+const percentage = document.getElementById('percentage');
+const mood = document.getElementById('mood');
+const planticon = document.getElementById('plant');
+const reminder = document.getElementById('message');
+const water_btn = document.getElementById('water-btn');
+const water_timer = water_btn.querySelector(".timer");
+const restart = document.getElementById('restart-btn');
+
+// Render
+function updateui() {
+    percentage.textContent = ` ${water_level}`;
+    bars.forEach((bar, i) => {
+        const threshold = i * 10;
+        const filled = water_level > threshold;
+        bar.style.background = filled ? "#8fc98a" : "#c2e0b8";
+        bar.style.color = filled ? "#8fc98a" : "#c2e0b8";
+    });
+
+    // Update mood
+    if (water_level > 80) {
+        planticon.src = "assets/philodendron-plant/philodendron-thriving.gif";
+        mood.textContent = "very healthy";
+        reminder.textContent = "all good here, feels like breeze";
+        restart.style.display = "none";
+        water_btn.style.display = "flex";
+    } else if (water_level > 50) {
+        planticon.src = "assets/philodendron-plant/philodendron-okay.gif";
+        mood.textContent = "im ok";
+        reminder.textContent = "fine, may be i could drink some";
+        restart.style.display = "none";
+        water_btn.style.display = "flex";
+    } else if (water_level > 0) {
+        planticon.src = "assets/philodendron-plant/philodendron-thirsty.gif";
+        mood.textContent = "thirsty";
+        reminder.textContent = "did you take me to desert?";
+        restart.style.display = "none";
+        water_btn.style.display = "flex";
+    } else {
+        planticon.src = "assets/philodendron-plant/philodendron-wilted.gif";
+        mood.textContent = "...";
+        reminder.textContent = "...";
+        restart.style.display = "flex";
+        water_btn.style.display = "none";
+    }
+}
+
+// Start the drain loop once
+setInterval(() => {
+    if (water_level > 0) {
+        water_level = Math.max(0, water_level - drain);
+        updateui();
+    }
+}, drain_interval);
+
+// Add event listeners
+water_btn.addEventListener("click", () => {
+    if (water_on_cooldown) return;
+    water_level = Math.min(100, water_level + 25);
+    updateui();
+
+    water_on_cooldown = true;
+    water_btn.disabled = true;
+    water_btn.style.opacity = 0.5;
+
+    let remaining = water_cooldown / 1000;
+    water_timer.textContent = `${remaining}s`;
+
+    cooldown_timer = setInterval(() => {
+        remaining -= 1;
+        if (remaining <= 0) {
+            clearInterval(cooldown_timer);
+            water_on_cooldown = false;
+            water_btn.disabled = false;
+            water_btn.style.opacity = 1;
+            water_timer.textContent = "ready";
+        } else {
+            water_timer.textContent = `${remaining}s`;
+        }
+    }, 1000);
+});
+
+restart.addEventListener("click", () => {
+    water_level = 100;
+    water_on_cooldown = false;
+    water_btn.disabled = false;
+    water_btn.style.opacity = 1;
+    water_timer.textContent = "ready for watering";
+    clearInterval(cooldown_timer);
+    updateui();
+});
+
+// Ensure DOM is loaded before calling updateui
+document.addEventListener("DOMContentLoaded", () => {
+    updateui();
+});
